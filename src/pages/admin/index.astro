@@ -1,0 +1,27 @@
+---
+import AdminLayout from '../../layouts/AdminLayout.astro';
+---
+
+<AdminLayout title="Dashboard">
+  <div class="max-w-3xl mx-auto">
+    <h1 class="text-3xl font-bold mb-6">Panel de Administración</h1>
+    
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <a href="/admin/likes" class="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow">
+        <h2 class="text-xl font-semibold mb-2 text-primary">Cosas que me gustan</h2>
+        <p class="text-gray-600">Añade y gestiona la lista de cosas que te gustan de ella.</p>
+      </a>
+      
+      <a href="/admin/reminders" class="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow">
+        <h2 class="text-xl font-semibold mb-2 text-secondary">Cosas que me recuerdan</h2>
+        <p class="text-gray-600">Añade y gestiona la lista de cosas que te recuerdan a ella.</p>
+      </a>
+    </div>
+    
+    <div class="mt-8 p-6 bg-white rounded-lg shadow-md">
+      <h2 class="text-xl font-semibold mb-4">Ver la página</h2>
+      <p class="text-gray-600 mb-4">Puedes ver cómo se ve la página para tu novia haciendo clic en el botón de abajo:</p>
+      <a href="/home" class="inline-block bg-dark text-white px-4 py-2 rounded-md hover:bg-opacity-90">Ver página</a>
+    </div>
+  </div>
+</AdminLayout>

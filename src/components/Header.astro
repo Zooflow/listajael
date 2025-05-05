@@ -1,0 +1,31 @@
+---
+// Componente Header
+---
+
+<header class="bg-red-900 text-white p-4">
+    <div class="container mx-auto flex justify-between items-center">
+      <h1 class="text-2xl font-bold text-white">Para mi osita ❤︎</h1>
+      <nav>
+        <ul class="flex space-x-4">
+          <li>
+            <button id="logout-btn" class="bg-red-800 text-white px-3 py-1 rounded hover:bg-opacity-80">
+              Cerrar sesión
+            </button>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+  
+  <script>
+    import { logout } from '../utils/authUtils';
+    
+    document.getElementById('logout-btn')?.addEventListener('click', (e) => {
+      e.preventDefault();
+      logout();
+      // Usar setTimeout para evitar problemas de redirección
+      setTimeout(() => {
+        window.location.href = '/';
+      }, 100);
+    });
+  </script>
