@@ -1,9 +1,8 @@
 // Uso de JSONBin para almacenar datos en la nube sin configuración complicada
 // Esta solución no requiere instalación de paquetes adicionales
 // Archivo de servicios (src/jsonbin/client.js)
-// Regístrate en JSONBin.io para obtener una API key
 const API_KEY = '$2a$10$/wLqY1wNeLVwYB5kWhkOBOd42sDd79L6ltW1I9WE4lxNkBYLN8uC'; // Reemplaza con tu API key de JSONBin
-const BIN_ID = '$681953be8561e97a500e7925'; // Crear un nuevo bin en JSONBin.io y usar ese ID
+const BIN_ID = '681953be8561e97a500e7925'; // Crear un nuevo bin en JSONBin.io y usar ese ID
 const API_URL = `https://api.jsonbin.io/v3/b/${BIN_ID}`;
 
 // Función para obtener todos los datos
