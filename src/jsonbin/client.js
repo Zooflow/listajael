@@ -1,24 +1,39 @@
 // Uso de JSONBin para almacenar datos en la nube sin configuración complicada
 // Esta solución no requiere instalación de paquetes adicionales
 // Archivo de servicios (src/jsonbin/client.js)
-const API_KEY = '$2a$10$/wLqY1wNeLVwYB5kWhkOBOd42sDd79L6ltW1I9WE4lxNkBYLN8uC'; // Reemplaza con tu API key de JSONBin
-const BIN_ID = '681953be8561e97a500e7925'; // Crear un nuevo bin en JSONBin.io y usar ese ID
+// Regístrate en JSONBin.io para obtener una API key
+const API_KEY = '$2a$10$/wLqY1wNeLVwYB5kWhkOBOd42sDd79L6ltW1I9WE4lxNkBYLN8uC'; // Tu API key de JSONBin
+const BIN_ID = '681953be8561e97a500e7925'; // Tu BIN ID (eliminé el $ inicial si estaba como parte del ID)
 const API_URL = `https://api.jsonbin.io/v3/b/${BIN_ID}`;
 
+console.log('Cliente JSONBin inicializado con:');
+console.log('- API URL:', API_URL);
+console.log('- BIN ID:', BIN_ID);
+
 // Función para obtener todos los datos
-async function getAllData() {
+export async function getAllData() {
   try {
+    console.log("Obteniendo datos de JSONBin:", API_URL);
     const response = await fetch(API_URL, {
       method: 'GET',
       headers: {
         'X-Master-Key': API_KEY
       }
     });
+    console.log("Respuesta de la API:", response.status);
     if (!response.ok) {
       throw new Error(`Error: ${response.status}`);
     }
     const data = await response.json();
-    return data.record || { reminders: [], likes: [] };
+    console.log("Datos obtenidos:", data);
+    // Asegurarse que el record tenga ambas propiedades, preservando datos existentes
+    const record = data.record || {};
+    const result = {
+      reminders: record.reminders || [],
+      likes: record.likes || []
+    };
+    console.log("Datos procesados:", result);
+    return result;
   } catch (error) {
     console.error("Error obteniendo datos:", error);
     return { reminders: [], likes: [] };
@@ -104,6 +119,32 @@ export async function deleteReminder(id) {
   } catch (error) {
     console.error("Error eliminando recordatorio:", error);
     throw error;
+  }
+}
+
+// Función para testear la conexión con JSONBin
+export async function testJsonBinConnection() {
+  try {
+    console.log("Probando conexión con JSONBin...");
+    const response = await fetch(API_URL, {
+      method: 'GET',
+      headers: {
+        'X-Master-Key': API_KEY
+      }
+    });
+    
+    console.log("Estado de la respuesta:", response.status);
+    if (!response.ok) {
+      console.error("Error en la conexión:", response.status, response.statusText);
+      return false;
+    }
+    
+    const data = await response.json();
+    console.log("Datos recibidos:", data);
+    return true;
+  } catch (error) {
+    console.error("Error en la prueba de conexión:", error);
+    return false;
   }
 }
 

@@ -27,7 +27,7 @@
 </div>
 
 <script>
-  import { getReminders, addReminder, deleteReminder } from '../jsonbin/client.js';
+  import { getReminders, addReminder, deleteReminder } from '../jsonbin/client';
   
   // Elementos del DOM
   const remindersList = document.querySelector('.reminders-list');
@@ -127,16 +127,44 @@
     }
   }
   
-  // Agregar eventos
-  document.addEventListener('DOMContentLoaded', () => {
-    loadReminders();
-    
-    addReminderBtn?.addEventListener('click', handleAddReminder);
-    
-    newReminderInput?.addEventListener('keypress', (e) => {
-      if (e.key === 'Enter') {
-        handleAddReminder();
-      }
-    });
+  // Función para inicializar los eventos
+function initEvents() {
+  console.log("Inicializando eventos de recordatorios");
+  
+  if (!remindersList) {
+    console.error("No se encontró el contenedor de la lista de recordatorios");
+    return;
+  }
+  if (!addReminderBtn) {
+    console.error("No se encontró el botón para agregar recordatorios");
+    return;
+  }
+  if (!newReminderInput) {
+    console.error("No se encontró el input para nuevos recordatorios");
+    return;
+  }
+
+  // Cargar recordatorios
+  loadReminders();
+  
+  // Agregar evento al botón
+  addReminderBtn.addEventListener('click', handleAddReminder);
+  
+  // Agregar evento al input
+  newReminderInput.addEventListener('keypress', (e) => {
+    if (e.key === 'Enter') {
+      handleAddReminder();
+    }
   });
+  
+  console.log("Eventos de recordatorios inicializados correctamente");
+}
+
+// Inicializar cuando el DOM esté listo
+document.addEventListener('DOMContentLoaded', initEvents);
+
+// Inicializar también inmediatamente por si se carga después del evento DOMContentLoaded
+if (document.readyState === 'complete' || document.readyState === 'interactive') {
+  setTimeout(initEvents, 100);
+}
 </script>

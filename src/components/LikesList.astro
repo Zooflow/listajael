@@ -27,7 +27,7 @@
 </div>
 
 <script>
-  import { getLikes, addLike, deleteLike } from '../jsonbin/client.js';
+  import { getLikes, addLike, deleteLike } from '../jsonbin/client';
   
   // Elementos del DOM
   const likesList = document.querySelector('.likes-list');
@@ -127,16 +127,44 @@
     }
   }
   
-  // Agregar eventos
-  document.addEventListener('DOMContentLoaded', () => {
-    loadLikes();
-    
-    addLikeBtn?.addEventListener('click', handleAddLike);
-    
-    newLikeInput?.addEventListener('keypress', (e) => {
-      if (e.key === 'Enter') {
-        handleAddLike();
-      }
-    });
+  // Función para inicializar los eventos
+function initEvents() {
+  console.log("Inicializando eventos de likes");
+  
+  if (!likesList) {
+    console.error("No se encontró el contenedor de la lista de likes");
+    return;
+  }
+  if (!addLikeBtn) {
+    console.error("No se encontró el botón para agregar likes");
+    return;
+  }
+  if (!newLikeInput) {
+    console.error("No se encontró el input para nuevos likes");
+    return;
+  }
+
+  // Cargar likes
+  loadLikes();
+  
+  // Agregar evento al botón
+  addLikeBtn.addEventListener('click', handleAddLike);
+  
+  // Agregar evento al input
+  newLikeInput.addEventListener('keypress', (e) => {
+    if (e.key === 'Enter') {
+      handleAddLike();
+    }
   });
+  
+  console.log("Eventos de likes inicializados correctamente");
+}
+
+// Inicializar cuando el DOM esté listo
+document.addEventListener('DOMContentLoaded', initEvents);
+
+// Inicializar también inmediatamente por si se carga después del evento DOMContentLoaded
+if (document.readyState === 'complete' || document.readyState === 'interactive') {
+  setTimeout(initEvents, 100);
+}
 </script>
